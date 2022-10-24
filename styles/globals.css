@@ -1,9 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: black;
 }
 
 a {
@@ -19,8 +24,36 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
   }
+}
+
+.card_bg {
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 255, 94, 1);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 255, 94, 1);
+  box-shadow: 0px 0px 7px 0px rgba(0, 255, 94, 1);
+  background-color: rgb(20, 20, 20);
+
+}
+
+.status_alive {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 255, 94, 1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 255, 94, 1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 255, 94, 1);
+  background-color:rgb(21 128 61)
+}
+.status_dead{
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(255,26,0,1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(255,26,0,1);
+  box-shadow: 0px 0px 10px 0px rgba(255,26,0,1);
+  background-color: rgb(185 28 28);
+}
+.status_unknown{
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(242,255,0,1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(242,255,0,1);
+  box-shadow: 0px 0px 10px 0px rgba(242,255,0,1);
+  background-color: rgb(253 224 71);
 }
