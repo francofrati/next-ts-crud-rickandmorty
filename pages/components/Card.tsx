@@ -23,18 +23,18 @@ const Card = ({ img, name, specie, id, origin, status, gender }: any) => {
             <div className='w-full text-center text-3xl font-bold bg-green-600 mb-3'>
                 Multiverse ID
             </div>
-            <div className='w-full flex flex-col gap-3 px-4'>
+            <div className='w-full flex flex-col gap-[10px] px-4'>
                 <div className=''>
                     <img 
                     src={img} 
                     alt={name} 
-                    className='h-56 m-auto rounded-[10px] border-2 p-[2px] border-green-700'/>
+                    className='h-[210px] m-auto rounded-[10px] border-2 p-[2px] border-green-700'/>
                 </div>
                 <div className='w-full flex justify-between px-10'>
                     <div className='font-bold text-xl'>#{id}</div>
                     <div className='flex items-center gap-2 font-bold text-xl'><div className={`h-3 w-3 rounded-full ${statusClassName()}`}></div>{status}</div>
                 </div>
-                <div className=' w-full flex flex-col gap-3 p-2'>
+                <div className=' w-full flex flex-col gap-[10px] p-2'>
                     <div className='flex flex-col flex-wrap border-b justify-between items-start'>
                         <div className='font-bold text-sm text-green-500'>name:</div>
                         <div className='font-semibold w-full text-center  text-xl'>{name}</div>
