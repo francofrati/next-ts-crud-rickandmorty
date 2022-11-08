@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { ButtonHTMLAttributes, DetailedHTMLProps, useEffect, useMemo, useRef, useState } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, FormEvent, FormEventHandler, useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { fetchCharacters } from '../../utils'
@@ -43,16 +43,18 @@ const Personajes: NextPage = () => {
     const [page, setPage] = useState<number>(1)
     const searchRef = useRef<HTMLInputElement>(null)
 
-    const [searchResults,setSearchResults] = useState<Character[] | any[]>([])
-    const getCharactersByName:any = async()=>{
+    const [searchResults, setSearchResults] = useState<Character[] | any[]>([])
+    const getCharactersByName: any = async (e: FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault()
 
         const value = searchRef.current?.value
 
-        const URL =()=> `https://rickandmortyapi.com/api/character/?name=${value}`
+        const URL = () => `https://rickandmortyapi.com/api/character/?name=${value}`
         const res = await fetch(URL())
         const data = await res.json()
 
-        if(data.error)return alert('no se encontraron personajes')
+        if (data.error) return alert('no se encontraron personajes')
 
         setSearchResults(data.results)
     }
@@ -73,7 +75,11 @@ const Personajes: NextPage = () => {
             .then(r => {
                 setCharactersInfo(r)
                 setPage(page => page + 1)
+                setTimeout(()=>{
+                    window.scrollTo(0, 0)
+                },700)
             })
+
 
     }
 
@@ -85,8 +91,10 @@ const Personajes: NextPage = () => {
     return (
         <div className='w-screen border'>
             <h1 className='text-[#2c7ff7] text-2xl font-bold text-center'>PERSONAJES</h1>
-            <input type="text" name="search_value" ref={searchRef}/>
-            <button onClick={getCharactersByName} className='bg-white'>Buscar</button>
+            <form onSubmit={getCharactersByName}>
+                <input type="text" name="search_value" ref={searchRef} />
+                <button onClick={getCharactersByName} type='submit' className='bg-white'>Buscar</button>
+            </form>
             <AnimatePresence initial={false} exitBeforeEnter>
                 <motion.div
                     key={page}
@@ -94,9 +102,9 @@ const Personajes: NextPage = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1, ease: 'easeInOut' }}
-                    className='flex flex-col gap-20'
-                >   
-                    {searchResults.length?searchResults.map(c => {
+                    className='flex flex-col gap-20 md:flex-row md:flex-wrap'
+                >
+                    {searchResults.length ? searchResults.map(c => {
                         return <Card
                             key={c.id}
                             name={c.name}
@@ -108,18 +116,18 @@ const Personajes: NextPage = () => {
                             specie={c.species}
                         />
                     })
-                    :charactersInfo?.results.map(c => {
-                        return <Card
-                            key={c.id}
-                            name={c.name}
-                            status={c.status}
-                            gender={c.gender}
-                            origin={c.origin.name}
-                            img={c.image}
-                            id={c.id}
-                            specie={c.species}
-                        />
-                    })}
+                        : charactersInfo?.results.map(c => {
+                            return <Card
+                                key={c.id}
+                                name={c.name}
+                                status={c.status}
+                                gender={c.gender}
+                                origin={c.origin.name}
+                                img={c.image}
+                                id={c.id}
+                                specie={c.species}
+                            />
+                        })}
                 </motion.div>
             </AnimatePresence>
             <button
